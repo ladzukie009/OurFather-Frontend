@@ -18,8 +18,11 @@ import {
   Typography,
   Backdrop,
   CircularProgress,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function Copyright(props) {
   return (
@@ -47,6 +50,17 @@ export default function SignInSide() {
   const navigate = useNavigate();
   const { setAuthUser } = useAuthContext();
   const [backdrop, setBackdrop] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -148,14 +162,27 @@ export default function SignInSide() {
                 autoFocus
               />
               <TextField
+                label="Password"
                 margin="normal"
                 required
-                fullWidth
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
                 name="password"
-                label="Password"
-                type="password"
                 id="password"
-                autoComplete="current-password"
+                fullWidth
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

@@ -38,7 +38,8 @@ export default function UserSideNavigation() {
       text: "Settings",
       icon: <SettingsIcon />,
       onClick: () => {
-        navigate("/users");
+        // navigate("/users");
+        alert("Page is not available yet");
       },
     },
     {

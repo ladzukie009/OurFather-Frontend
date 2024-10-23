@@ -20,7 +20,8 @@ import {
 } from "./utils/ProtectedRoutes";
 import ListOfUser from "./pages/super_admin/ListOfUser";
 import { useAuthContext } from "./context/AuthContext";
-import UserDashboard from "./pages/user/Dashboard";
+// import UserDashboard from "./pages/user/Dashboard";
+import UserDashboard from "./pages/user/Dashboard2";
 import MyPlans from "./pages/user/Plan";
 import Reservation from "./pages/user/Reservation";
 

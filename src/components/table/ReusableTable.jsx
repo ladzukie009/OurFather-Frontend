@@ -8,7 +8,6 @@ import {
   TableRow,
   Typography,
   TablePagination,
-  Paper,
 } from "@mui/material";
 
 export default function ReusableTable({
@@ -39,44 +38,43 @@ export default function ReusableTable({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   return (
     <>
-      <Paper square variant="outlined">
-        <Typography variant="h6" sx={{ paddingX: 2, pt: 2 }}>
-          {title}
-        </Typography>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
+      <Typography variant="h6" sx={{ paddingX: 2, pt: 2 }}>
+        {title}
+      </Typography>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell key={column.id}>{column.label}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, index) => (
+              <TableRow key={index}>
                 {columns.map((column) => (
-                  <TableCell key={column.id}>{column.label}</TableCell>
+                  <TableCell key={column.id}>
+                    {row[column.id] !== "" ? row[column.id] : "-"}
+                  </TableCell>
                 ))}
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row, index) => (
-                <TableRow key={index}>
-                  {columns.map((column) => (
-                    <TableCell key={column.id}>
-                      {row[column.id] !== "" ? row[column.id] : "-"}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={rowsPerPageOptions}
-          component="div"
-          count={totalRows}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={rowsPerPageOptions}
+        component="div"
+        count={totalRows}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 }
